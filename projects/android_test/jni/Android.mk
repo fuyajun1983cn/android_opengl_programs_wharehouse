@@ -1,28 +1,9 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-
-LOCAL_MODULE := libcommon
-LOCAL_SRC_FILES := \
-	../../../src/common/fyjstring.cpp \
-	../../../src/common/fyjprogram.cpp \
-	../../../src/common/fyjcamera.cpp \
-	../../../src/common/fyjgeometry_shape.cpp \
-	../../../src/common/fyjgeometry_sphere.cpp \
-	../../../src/common/fyjgeometry_torus.cpp 
-
-LOCAL_C_INCLUDES := \
-	$(LOCAL_PATH)/../../../src/platforms/android \
-	$(LOCAL_PATH)/../../../src/common  \
-	$(LOCAL_PATH)/../../../src/testcases \
-	$(LOCAL_PATH)/../../../third_party/glsdk/glm 
-
-include $(BUILD_STATIC_LIBRARY)
-
-
-include $(CLEAR_VARS)
 LOCAL_MODULE := libmytest
 LOCAL_SRC_FILES := \
+       \
 	../../../src/testcases/camera/cameratest.cpp \
 	../../../src/testcases/transform/transformtest.cpp \
 	../../../src/testcases/texture/texturetest.cpp \
@@ -32,8 +13,15 @@ LOCAL_SRC_FILES := \
 	../../../src/testcases/geometry/shapetest.cpp \
 	../../../src/testcases/geometry/geometrytest.cpp \
 	../../../src/testcases/fps/fpstest.cpp \
-	../../../src/testcases/test_interface.cpp
-
+	../../../src/testcases/test_interface.cpp \
+\
+	../../../src/common/fyjstring.cpp \
+	../../../src/common/fyjprogram.cpp \
+	../../../src/common/fyjcamera.cpp \
+	../../../src/common/fyjgeometry_shape.cpp \
+	../../../src/common/fyjgeometry_sphere.cpp \
+	../../../src/common/fyjgeometry_torus.cpp  \
+ 
 LOCAL_C_INCLUDES := \
 	$(LOCAL_PATH)/../../../src/platforms/android  \
 	$(LOCAL_PATH)/../../../src/common  \
@@ -42,7 +30,6 @@ LOCAL_C_INCLUDES := \
 
 LOCAL_CFLAGS := -DOPENGL_ES2
 LOCAL_LDLIBS := -ljnigraphics -lGLESv2 -ldl -llog
-LOCAL_SHARED_LIBRARIES := libcommon
 include $(BUILD_SHARED_LIBRARY) 
 
 include $(CLEAR_VARS)
@@ -59,5 +46,5 @@ LOCAL_C_INCLUDES := \
 	$(LOCAL_PATH)/../../../src/app
 
 LOCAL_LDLIBS := -ljnigraphics -lGLESv2 -ldl -llog
-LOCAL_SHARED_LIBRARIES := libmytest libcommon
+LOCAL_SHARED_LIBRARIES := libmytest 
 include $(BUILD_SHARED_LIBRARY)

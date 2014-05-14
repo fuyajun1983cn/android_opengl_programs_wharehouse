@@ -1,6 +1,6 @@
 #include "app.h"
 #include "os.h"
-#include "include_test_interfaces.h"
+#include "test_interface.h"
 
 using namespace FYJ;
 
