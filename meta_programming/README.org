@@ -1,0 +1,42 @@
+#+STARTUP: overview
+#+TITLE: C++模板元编程笔记
+#+AUTHOR: 山庄来客
+#+EMAIL: fuyajun1983cn@163.com
+#+STARTUP: hidestars
+#+OPTIONS:    H:3 num:nil toc:t \n:nil ::t |:t ^:t -:t f:t *:t tex:t d:(HIDE) tags:not-in-toc
+#+HTML_HEAD: <link rel="stylesheet" title="Standard" href="css/worg.css" type="text/css" />
+
+
+* 第二章  Traits和类型操纵
+  用作类型计算的元编程
+
+  
+** Boost Type Traits程序库
+   主类型归类有9个traits:
+   1. is_void<T>
+   2. is_pointer<T>
+   3. is_reference<T>
+   4. is_array<T>
+   5. is_enum<T>
+   6. is_integral<T>
+   7. is_float<T>
+   8. is_union<T>
+   9. is_class<T>
+   10. is_member_pointer<T>
+   11. is_function<T>
+   12. is_void<T>
+
+   次类型归类：
+   1. is_arithmetic<T>
+   2. is_compound<T>
+   3. is_fundamental<T>
+   4. is_member_function_pointer<T>
+   5. is_object<T>
+   6. is_scalar<T>
+
+     
+   元函数的定义：
+   一个元函数可以是一个类模板，它的所有参数都是参数，
+   或者一个类，带有一个名为"type"的可公开访问的嵌套结果类型。
+
+
