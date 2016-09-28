@@ -164,9 +164,27 @@ namespace std {
   template <class C, class X, class Y>
   struct replace_type
   {
-    typedef int type;
+    typedef Y type;
   };
 
+  template <class X, class Y>
+  struct replace_type<X*, X, Y>
+  {
+    typedef Y* type;
+  };
+
+  template <class X, class Y>
+  struct replace_type<X* (*)(X), X, Y>
+  {
+    typedef typename Y* (*)(Y) type;
+  };
+#if 0
+  template <class C, class X, class Y, size_t N>
+  struct replace_type<X**, Y>
+  {
+    typedef Y*[N] type;
+  }
+#endif
   
 }
 
@@ -176,7 +194,9 @@ int main(int argc, char *argv[])
   std::cout<<boost::is_same<add_const_ref<int>::type, int const&>::value<<std::endl;
 
   //ex02 test
-  
+  std::cout<<boost::is_same<replace_type<void*, void, int>::type, int*>::value<<std::endl;
+  //std::cout<<boost::is_same<replace_type<int const *[10], int const, long>::type, long*[10]>::value<<std::endl
+  std::cout<<boost::is_same<replace_type<char& (*)(char&), char&, long&>::type, long& (*)(long&)>::value<<std::endl;
 
   return 0;
 }
