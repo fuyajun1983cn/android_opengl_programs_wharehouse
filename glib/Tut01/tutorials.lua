@@ -1,0 +1,1 @@
+SetupProject("Tut 01 Hello", "tut1.c")
