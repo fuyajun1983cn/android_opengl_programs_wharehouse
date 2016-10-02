@@ -39,4 +39,17 @@
    一个元函数可以是一个类模板，它的所有参数都是参数，
    或者一个类，带有一个名为"type"的可公开访问的嵌套结果类型。
 
+* 深入探索元函数
+
+  1. 元函数类是这样的一种类： 内嵌有一个可公开访问的名为apply的元函数。
+     #+BEGIN_SRC c++
+       struct plus_f
+       {
+         template <class T1, class T2>
+         struct apply
+         {
+           typedef typename mpl::plust<T1, T2>::type type;
+         };
+       };
+     #+END_SRC
 

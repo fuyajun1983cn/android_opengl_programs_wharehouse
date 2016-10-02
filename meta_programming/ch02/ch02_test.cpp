@@ -155,7 +155,7 @@ namespace std {
 }
 
 /**
- * ex02:
+ * ex01:
  * replace_type<c,x,y>
  * 接受任一个复合类型c作为其第一个参数
  * 并将c中出现的所有type x替换为y
@@ -174,29 +174,85 @@ namespace std {
   };
 
   template <class X, class Y>
-  struct replace_type<X* (*)(X), X, Y>
+  struct replace_type<X (*)(X), X, Y>
   {
-    typedef typename Y* (*)(Y) type;
+    typedef  Y (*type)(Y) ;
   };
-#if 0
-  template <class C, class X, class Y, size_t N>
-  struct replace_type<X**, Y>
+
+  //针对数组的特化
+    template <class X, class Y, size_t N>
+    struct replace_type<X(*)[N], X, Y>
+    {
+      typedef Y (*type)[N];
+    };
+}
+
+/**
+ * Ex02
+ */
+#include <boost/polymorphic_cast.hpp>
+
+namespace std {
+  template <class Target, class Source>
+  Target polymorphic_downcast(Source *x)
   {
-    typedef Y*[N] type;
+    return boost::polymorphic_downcast<Target>(x);
   }
-#endif
+
+  template <class Target, class Source>
+  Target polymorphic_downcast(Source &x)
+  {
+    return dynamic_cast<Target>(x);//The C++ built-in dynamic_cast must be used to cast references rather than pointers.
+  }
   
 }
 
+/**
+ * Ex03 & Ex04 & Ex05
+ */
+
+namespace std {
+  
+  template <class T>
+  struct type_descriptor {
+    // const type_str = type_descriptor<T, boost::is_pod<T>>::type;
+    std::string operator() (T)const
+    {
+      return typeid(T).name();
+    }
+  };
+  
+}
+
+
 int main(int argc, char *argv[])
 {
-  //ex01 test
+  //ex00 test
   std::cout<<boost::is_same<add_const_ref<int>::type, int const&>::value<<std::endl;
 
-  //ex02 test
+  //ex01 test
   std::cout<<boost::is_same<replace_type<void*, void, int>::type, int*>::value<<std::endl;
-  //std::cout<<boost::is_same<replace_type<int const *[10], int const, long>::type, long*[10]>::value<<std::endl
+  std::cout<<boost::is_same<replace_type<int const (*)[10], int const, long>::type, long(*)[10]>::value<<std::endl;
   std::cout<<boost::is_same<replace_type<char& (*)(char&), char&, long&>::type, long& (*)(long&)>::value<<std::endl;
+  std::cout<<boost::is_same<replace_type<char *(*)(char *), char *, long*>::type, long*(*)(long*)>::value<<std::endl;
 
+  //ex02 test
+  {
+    struct A { virtual ~A() {} };
+    struct B : A {};
+
+    B b ;
+    A* a_ptr = &b;
+    B* b_ptr = polymorphic_downcast<B*>(a_ptr);
+
+    A& a_ref = b;
+    B& b_ref = polymorphic_downcast<B&>(a_ref);
+  }
+
+  //ex03 test
+  {
+    std::cout<<type_descriptor<int>(int)<<std::endl;
+  }
+  
   return 0;
 }
