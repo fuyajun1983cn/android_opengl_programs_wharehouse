@@ -2,3 +2,8 @@
 bin/
 obj/
 libs/
+Makefile
+obj/
+*.make
+build/
+output/
