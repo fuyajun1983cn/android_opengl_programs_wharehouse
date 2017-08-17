@@ -141,7 +141,7 @@ static void load_plugins_1(void)
   fclose(lf);
 }
 
-static const char pluginCollectionDir[] = "plugins";
+static const char pluginCollectionDir[] = "tests";
 
 void load_plugins_2(void)
 {
@@ -160,7 +160,7 @@ void load_plugins_2(void)
   }
 }
 
-static const char corePluginId[] = "org.c-pluff.examples.cpfile.core";
+static const char corePluginId[] = "ifjy.me.core";
 static void run_plugins(char *argv[])
 {
   cp_status_t status;
@@ -172,6 +172,7 @@ static void run_plugins(char *argv[])
   status = cp_start_plugin(ctx, corePluginId);
   if (status != CP_OK) {
     // ... handle startup failure ...
+    error("start core plugin failed.")
   }
 
   // Execute plug-ins until there is no more work to be done

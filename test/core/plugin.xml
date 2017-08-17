@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin
+  id="ifjy.me.core"
+  version="0.1"
+  name="Core logic for test programs"
+  provider-name="Jackson Fu">
+  <requires>
+    <c-pluff version="0.1"/>
+  </requires>
+  <runtime library="libcore" funcs="ex_test_core_funcs"/>
+  <extension-point
+    id="type"
+    name="Test Program Type" />
+</plugin>
